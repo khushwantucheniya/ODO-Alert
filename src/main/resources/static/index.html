@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ODO Alert — Smart Vehicle Manager</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <section id="authView" class="auth-shell">
+    <div class="auth-brand">
+      <div class="brand-mark"></div>
+      <p class="eyebrow">SMART VEHICLE MANAGEMENT</p>
+      <h1>ODO <span>Alert</span></h1>
+      <p>Keep every vehicle, document and service date under control.</p>
+    </div>
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button id="loginTab" class="tab active" type="button">Login</button>
+        <button id="signupTab" class="tab" type="button">Create account</button>
+      </div>
+      <form id="authForm">
+        <h2 id="authTitle">Welcome back</h2>
+        <p id="authSubtitle" class="muted">Log in to manage your vehicles.</p>
+        <label id="nameLabel" class="hidden" for="authName">Full name</label>
+        <input id="authName" class="hidden" maxlength="100" placeholder="Your name">
+        <label for="authEmail">Email address</label>
+        <input id="authEmail" type="email" maxlength="190" required autocomplete="email" placeholder="you@example.com">
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" minlength="8" maxlength="72" required autocomplete="current-password" placeholder="At least 8 characters">
+        <button class="btn primary full" id="authSubmit" type="submit">Login</button>
+        <p id="authMessage" class="message" role="status"></p>
+      </form>
+      <p class="auth-note">College project demo · Use your own test account.</p>
+    </div>
+  </section>
+
+  <div id="appView" class="app hidden">
+    <aside class="sidebar">
+      <a href="#dashboard" class="logo">ODO <span>Alert</span></a>
+      <p class="side-label">VEHICLE MANAGEMENT</p>
+      <a href="#dashboard" class="nav-link active"> Dashboard</a>
+      <a href="#vehicles" class="nav-link"> My Vehicles</a>
+      <a href="#reminders" class="nav-link"> Reminders</a>
+      <div class="side-bottom"><span class="online-dot"></span> Reminder system ready<br><small>Never miss a deadline.</small></div>
+    </aside>
+    <main class="main">
+      <header class="topbar" id="dashboard">
+        <div><p class="eyebrow">VEHICLE MANAGEMENT SYSTEM</p><h1>Dashboard</h1><p class="muted">Welcome, <strong id="welcomeName">Driver</strong>. Here is your fleet overview.</p></div>
+        <div class="top-actions"><button class="btn primary" id="addVehicleBtn">＋ Add Vehicle</button><button class="btn secondary" id="logoutBtn">Log out</button></div>
+      </header>
+      <section class="stats">
+        <article class="stat"><div class="stat-icon blue"></div><span>Total Vehicles</span><h2 id="totalCount">0</h2><small>Your saved vehicles</small></article>
+        <article class="stat"><div class="stat-icon amber"></div><span>Due in 5 Days</span><h2 id="dueCount">0</h2><small>Upcoming actions</small></article>
+        <article class="stat"><div class="stat-icon red"></div><span>Expired Documents</span><h2 id="expiredCount">0</h2><small>Renewal may be required</small></article>
+        <article class="stat"><div class="stat-icon green"></div><span>Maintenance Due</span><h2 id="maintenanceCount">0</h2><small>Service reminders</small></article>
+      </section>
+      <section class="panel" id="vehicles">
+        <div class="section-head"><div><h2>My Vehicles</h2><p class="muted">Manage your vehicles and their document dates.</p></div><input id="searchInput" class="search" type="search" placeholder="Search name or number…"></div>
+        <div id="vehicleList" class="vehicle-grid"></div>
+      </section>
+      <section class="panel" id="reminders">
+        <div class="section-head"><div><h2>Upcoming Reminders</h2><p class="muted">Expired items and dates due within 5 days.</p></div><button class="btn secondary" id="refreshBtn">↻ Refresh</button></div>
+        <div id="reminderList"></div>
+      </section>
+      <footer>ODO Alert © 2026 · Smart Vehicle Reminder System</footer>
+    </main>
+  </div>
+
+  <div class="modal" id="vehicleModal" aria-hidden="true">
+    <form class="modal-card" id="vehicleForm">
+      <div class="modal-head"><div><p class="eyebrow">VEHICLE RECORD</p><h2 id="vehicleFormTitle">Add vehicle</h2><p class="muted">Fields marked * are required.</p></div><button type="button" class="icon-btn" id="closeModal" aria-label="Close">✕</button></div>
+      <input type="hidden" id="vehicleId">
+      <div class="form-grid">
+        <div class="field span-2"><label for="vehicleName">Vehicle name *</label><input id="vehicleName" required maxlength="70" placeholder="e.g. Maruti Ertiga"></div>
+        <div class="field"><label for="registrationNumber">Registration number *</label><input id="registrationNumber" required maxlength="20" placeholder="RJ36AB1234"></div>
+        <div class="field"><label for="vehicleType">Vehicle type</label><select id="vehicleType"><option>Car</option><option>Bike</option><option>Truck</option><option>Bus</option><option>Other</option></select></div>
+        <div class="field"><label for="insuranceExpiry">Insurance expiry</label><input id="insuranceExpiry" type="date"></div>
+        <div class="field"><label for="pucExpiry">PUC expiry</label><input id="pucExpiry" type="date"></div>
+        <div class="field"><label for="fitnessExpiry">Fitness / permit expiry</label><input id="fitnessExpiry" type="date"></div>
+        <div class="field"><label for="nextServiceDate">Next service date</label><input id="nextServiceDate" type="date"></div>
+        <div class="field span-2"><label for="nextServiceKm">Next service odometer target (km, optional)</label><input id="nextServiceKm" type="number" min="0" max="10000000" placeholder="e.g. 50000"></div>
+      </div>
+      <div class="modal-actions"><button type="button" class="btn secondary" id="cancelModal">Cancel</button><button class="btn primary" type="submit">Save vehicle</button></div>
+      <p id="vehicleFormMessage" class="message" role="status"></p>
+    </form>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
